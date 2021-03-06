@@ -177,3 +177,11 @@ body{
 .color .subtotal.more{
     color:  green;
 }
+
+.cheatsheet{
+    padding: 20px 0;
+}
+
+.cheatsheet a{
+    text-decoration: underline;
+}
