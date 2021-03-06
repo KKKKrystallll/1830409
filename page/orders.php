@@ -10,6 +10,7 @@ require_once '../library/init.php';
 //open purchase.txt
 $fp = @fopen(PURCHASES_FILE, 'r');
 
+
 //all orders
 $list = [];
 // open success
