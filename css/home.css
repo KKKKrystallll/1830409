@@ -40,6 +40,7 @@ TianzhenSun(1830409) 2021-03-06 create file, and move style from style.css file
 
 .product .list .twice img{
     width: 400px;
+    border: 5px solid red;
 }
 
 .product .list .info{
