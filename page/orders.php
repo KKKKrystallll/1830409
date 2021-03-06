@@ -3,6 +3,7 @@
 #
 #DEVELOPER DATE COMMENTS
 #TianzhenSun(1830409) 2021-03-06 finish orders page except cheat sheet
+#TianzhenSun(1830409) 2021-03-06 add cheat sheet download link
 #
 
 require_once '../library/init.php';
@@ -79,6 +80,9 @@ switch ($command) {
         </ul>
     </div>
 
+    <div class="cheatsheet">
+        <a href="../data/cheatsheet.txt" download="cheatsheet.txt">cheat sheet</a>
+    </div>
     <table id="orders-table">
         <thead>
         <tr>
