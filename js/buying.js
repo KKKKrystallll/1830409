@@ -2,6 +2,7 @@
 //
 //DEVELOPER DATE COMMENTS
 //TianzhenSun(1830409) 2021-03-06 create file, and check buying page form data
+//TianzhenSun(1830409) 2021-03-06 Capitalizes the first letter of error
 //
 $(function () {
     //the submit event of buy form
@@ -29,7 +30,7 @@ $(function () {
 
         //check product code
         if (!/^(p|P)/.test(productCode)) {
-            productCodeDom.parents('.form-group').find('.error').text('product code must start with P or p.');
+            productCodeDom.parents('.form-group').find('.error').text('Product code must start with P or p.');
             validate = false;
         }
 
