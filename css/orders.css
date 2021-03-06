@@ -1,0 +1,45 @@
+/*
+Revision history:
+
+DEVELOPER DATE COMMENTS
+TianzhenSun(1830409) 2021-03-06 create file, and move style from style.css file
+*/
+#orders-table{
+    border-collapse: collapse;
+    margin: 20px auto;
+    width: 100%;
+    background: #93b3a3;
+}
+
+#orders-table th,td{
+    border: 1px solid #ccc;
+    padding: 10px;
+}
+
+.print{
+    background-color: white;
+}
+
+.print img{
+    opacity: 0.3;
+}
+
+.color .subtotal.less{
+    color: red;
+}
+
+.color .subtotal.between{
+    color:  orange;
+}
+
+.color .subtotal.more{
+    color:  green;
+}
+
+.cheatsheet{
+    padding: 20px 0;
+}
+
+.cheatsheet a{
+    text-decoration: underline;
+}

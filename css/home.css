@@ -1,0 +1,52 @@
+/*
+Revision history:
+
+DEVELOPER DATE COMMENTS
+TianzhenSun(1830409) 2021-03-06 create file, and move style from style.css file
+*/
+.product{
+    padding: 20px 0;
+}
+
+.big{
+    display: flex;
+    align-items: center;
+}
+
+.big img{
+    width: 600px;
+}
+
+.big .description{
+    text-indent: 2rem;
+    line-height: 2;
+    font-size: 18px;
+    margin-left: 20px;
+}
+
+.product .list{
+    padding: 20px 0;
+}
+
+.product .list>div{
+    display: inline-block;
+    padding: 10px 0;
+    margin-right: 10px;
+}
+
+.product .list img{
+    width: 200px;
+}
+
+.product .list .twice img{
+    width: 400px;
+}
+
+.product .list .info{
+    display: flex;
+    justify-content: space-between;
+}
+
+.seperator{
+    margin-top: 20px;
+}

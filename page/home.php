@@ -3,7 +3,16 @@
 #
 #DEVELOPER DATE COMMENTS
 #TianzhenSun(1830409) 2021-03-06 finish logo and nav
+#TianzhenSun(1830409) 2021-03-06 add advertise
 #
+require_once '../library/init.php';
+$products = require '../data/products.php';
+
+$randProductNo = rand(0, count($products) - 1);
+$bigAd = $products[$randProductNo];
+
+$twiceProduct = $products[0];
+$normalProducts = array_slice($products, 1);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -11,6 +20,7 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <link rel="stylesheet" href="../css/style.css"/>
+    <link rel="stylesheet" href="../css/home.css"/>
 </head>
 <body>
 <div class="content">
@@ -37,9 +47,42 @@
             <li><a href="orders.php">Orders</a></li>
         </ul>
     </div>
+    <div class="product">
+        <h2>Advertising</h2>
+        <div class="big">
+            <div>
+                <a href="//www.google.com"><img src="<?php echo $bigAd['image'];?>"/></a>
+            </div>
+            <div class="description">
+                write some description. write some description. write some description. write some description.
+                write some description. write some description.
+            </div>
+        </div>
+        <hr class="seperator"/>
+        <div class="list">
+            <div class="twice">
+                <a href="//www.google.com"><img src="<?php echo $twiceProduct['image'];?>"/></a>
+                <div class="info">
+                    <div><?php echo $twiceProduct['name'];?></div>
+                    <div>$<?php echo $twiceProduct['price'];?></div>
+                </div>
+            </div>
+            <?php foreach ($normalProducts as $item):?>
+                <div class="normal">
+                    <a href="//www.google.com"><img src="<?php echo $item['image'];?>"/></a>
+                    <div class="info">
+                        <div><?php echo $item['name'];?></div>
+                        <div>$<?php echo $item['price'];?></div>
+                    </div>
+                </div>
+            <?php endforeach;?>
+
+        </div>
+
+    </div>
 </div>
 <div class="footer">
-    <p>Copyright Bill Torvalds (1244556) 2022.</p>
+    <p>Copyright TianzhenSun (1830409) 2022.</p>
 </div>
 </body>
 </html>

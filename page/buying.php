@@ -3,6 +3,7 @@
 #
 #DEVELOPER DATE COMMENTS
 #TianzhenSun(1830409) 2021-03-06 finish buying page,but not generate html tag with function
+#TianzhenSun(1830409) 2021-03-06 modify footer
 #
 
 require_once '../library/init.php';
@@ -56,6 +57,7 @@ if (!empty($_POST)) {
     <meta charset="UTF-8">
     <title>Buying</title>
     <link rel="stylesheet" href="../css/style.css"/>
+    <link rel="stylesheet" href="../css/buying.css"/>
     <script src="../js/jquery.min.js"></script>
     <script src="../js/buying.js"></script>
 </head>
@@ -164,7 +166,7 @@ if (!empty($_POST)) {
 
 </div>
 <div class="footer">
-    <p>Copyright Bill Torvalds (1244556) 2022.</p>
+    <p>Copyright TianzhenSun (1830409) 2022.</p>
 </div>
 </body>
 </html>

@@ -4,6 +4,7 @@
 #DEVELOPER DATE COMMENTS
 #TianzhenSun(1830409) 2021-03-06 finish orders page except cheat sheet
 #TianzhenSun(1830409) 2021-03-06 add cheat sheet download link
+#TianzhenSun(1830409) 2021-03-06 modify footer
 #
 
 require_once '../library/init.php';
@@ -51,6 +52,7 @@ switch ($command) {
     <meta charset="UTF-8">
     <title>Title</title>
     <link rel="stylesheet" href="../css/style.css"/>
+    <link rel="stylesheet" href="../css/orders.css"/>
     <style>
 
     </style>
@@ -130,9 +132,10 @@ switch ($command) {
         </tbody>
     </table>
 
+
 </div>
 <div class="footer">
-    <p>Copyright Bill Torvalds (1244556) 2022.</p>
+    <p>Copyright TianzhenSun (1830409) 2022.</p>
 </div>
 </body>
 </html>
