@@ -5,6 +5,7 @@
 #TianzhenSun(1830409) 2021-03-06 finish orders page except cheat sheet
 #TianzhenSun(1830409) 2021-03-06 add cheat sheet download link
 #TianzhenSun(1830409) 2021-03-06 modify footer
+#TianzhenSun(1830409) 2021-03-06 use function to generate html tag
 #
 
 require_once '../library/init.php';
@@ -31,6 +32,40 @@ if (false !== $fp) {
     fclose($fp);
 }
 
+//format the data, so that can use writeTable() function
+$orderList = [];
+foreach ($list as $item) {
+    $orderOne = [];
+    foreach ($item as $key => $value) {
+        $class = '';
+        $unit = '';
+        //Subtotal is special
+        if ($key === 'Subtotal') {
+            if ($value < 100.00) {
+                $class = 'less';
+            } else if ($value >= 100 && $value <=  999.99) {
+                $class = 'between';
+            } else {
+                $class = 'more';
+            }
+        }
+
+        //field about money should have unit
+        if (in_array($key, ['Price', 'Subtotal', 'TaxesAmount', 'GrandTotal'], true)) {
+            $unit = '$';
+        }
+
+
+        $orderOne[$key] = [
+            'value' => $value . $unit,
+            'class' => $class,
+        ];
+    }
+
+    $orderList[] = $orderOne;
+}
+
+
 $command = isset($_GET['command']) ? $_GET['command'] : '';
 $bodyClass = '';
 switch ($command) {
@@ -45,97 +80,45 @@ switch ($command) {
     default:
         break;
 }
+
+writeHeader();
 ?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-    <link rel="stylesheet" href="../css/style.css"/>
-    <link rel="stylesheet" href="../css/orders.css"/>
-    <style>
 
-    </style>
-</head>
-<body class="<?php echo $bodyClass;?>">
-<div class="content">
-    <div class="header">
-        <div class="logo">
-            <img src="../images/logo.jpg"/>
-        </div>
-        <div class="company">
-            <p class="name">
-                LWKK
-            </p>
-            <p class="description">
-                The company is committed to bring convenience to people's life,
-                mainly research and sale of various portable tableware,
-                so that people can also use their own clean tableware when traveling.
-            </p>
+<?php writeDocumentType()?>
+<?php writeHtmlStart();?>
+<?php writeHead('Orders', ['../css/style.css', '../css/orders.css']);?>
+<?php writeHtmlCommonTagStart('body', ['class' => $bodyClass]);?>
+<?php writeHtmlCommonTagStart('div', ['class' => 'content']);?>
+<?php writeLogo();?>
+<?php writeNav(2);?>
 
-        </div>
-    </div>
-    <div class="nav">
-        <ul>
-            <li><a href="home.php">Home</a></li>
-            <li><a href="buying.php">Buying</a></li>
-            <li class="active"><a href="orders.php">Orders</a></li>
-        </ul>
-    </div>
+<?php writeHtmlCommonTagStart('div', ['class' => 'cheatsheet']);?>
+<?php writeHtmlCommonTagStart('a', ['href' => '../data/cheatsheet.txt', 'download' => 'cheatsheet.txt']);?>
+    cheat sheet
+<?php writeHtmlCommonTagEnd('a');?>
+<?php writeHtmlCommonTagEnd('div', 'cheatsheet');?>
 
-    <div class="cheatsheet">
-        <a href="../data/cheatsheet.txt" download="cheatsheet.txt">cheat sheet</a>
-    </div>
-    <table id="orders-table">
-        <thead>
-        <tr>
-            <th>Product ID</th>
-            <th>First name</th>
-            <th>Last name</th>
-            <th>City</th>
-            <th>Comments</th>
-            <th>Price</th>
-            <th>Quantity</th>
-            <th class="subtotal">Subtotal</th>
-            <th>Taxes</th>
-            <th>Grand total</th>
-        </tr>
-        </thead>
-        <tbody>
-        <?php foreach ($list as $item):?>
-        <tr>
-            <td><?php echo $item['ProductID'];?></td>
-            <td><?php echo $item['FirstName'];?></td>
-            <td><?php echo $item['LastName'];?></td>
-            <td><?php echo $item['City'];?></td>
-            <td><?php echo $item['Comments'];?></td>
-            <td><?php echo $item['Price'] . '$';?></td>
-            <td><?php echo $item['Quantity'];?></td>
-            <?php
-            $subtotalClass = '';
-            if ($item['Subtotal'] < 100.00) {
-                $subtotalClass = 'less';
-            } else if ($item['Subtotal'] >= 100 && $item['Subtotal'] <=  999.99) {
-                $subtotalClass = 'between';
-            } else {
-                $subtotalClass = 'more';
-            }
+<?php
+$heads = [
+    ['title' => 'Product ID', 'column' => 'ProductID'],
+    ['title' => 'First name', 'column' => 'FirstName'],
+    ['title' => 'Last name', 'column' => 'LastName'],
+    ['title' => 'City', 'column' => 'City'],
+    ['title' => 'Comments', 'column' => 'Comments'],
+    ['title' => 'Price', 'column' => 'Price'],
+    ['title' => 'Quantity', 'column' => 'Quantity'],
+    ['title' => 'Subtotal', 'column' => 'Subtotal'],
+    ['title' => 'Taxes', 'column' => 'TaxesAmount'],
+    ['title' => 'Grand Total', 'column' => 'GrandTotal'],
+];
+writeTable(['id' => 'orders-table'], $heads, $orderList);
+?>
+<?php writeHtmlCommonTagEnd('div', 'content');?>
+<!--.footer start-->
+<?php writeFooter();?>
 
-            ?>
-
-            <td class="subtotal <?php echo $subtotalClass;?>"><?php echo $item['Subtotal'] . '$';?></td>
-            <td><?php echo $item['TaxesAmount'] . '$';?></td>
-            <td><?php echo $item['GrandTotal'] . '$';?></td>
-
-        </tr>
-        <?php endforeach;?>
-        </tbody>
-    </table>
+<!--.footer end-->
 
 
-</div>
-<div class="footer">
-    <p>Copyright TianzhenSun (1830409) 2022.</p>
-</div>
-</body>
-</html>
+<?php writeBodyClose();?>
+<?php writeHtmlClose();?>

@@ -21,7 +21,7 @@ function errorHandler($errno, $errstr, $errfile, $errline, $errcontext = []) {
  */
 function exceptionHandler($e){
     $time = $_SERVER['REQUEST_TIME'];
-    $dir = 'logs/';
+    $dir = LOG_PATH;
     if (!is_dir($dir)) {
         mkdir($dir, 0755);
     }

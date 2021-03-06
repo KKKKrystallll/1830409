@@ -4,6 +4,7 @@
 #DEVELOPER DATE COMMENTS
 #TianzhenSun(1830409) 2021-03-06 finish buying page,but not generate html tag with function
 #TianzhenSun(1830409) 2021-03-06 modify footer
+#TianzhenSun(1830409) 2021-03-06 use function to generate html tag
 #
 
 require_once '../library/init.php';
@@ -50,123 +51,127 @@ if (!empty($_POST)) {
     //give a tip when success
     echo '<script>alert("Submit success");</script>';
 }
+
+writeHeader();
 ?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Buying</title>
-    <link rel="stylesheet" href="../css/style.css"/>
-    <link rel="stylesheet" href="../css/buying.css"/>
-    <script src="../js/jquery.min.js"></script>
-    <script src="../js/buying.js"></script>
-</head>
-<body>
-<div class="content">
-    <div class="header">
-        <div class="logo">
-            <img src="../images/logo.jpg"/>
-        </div>
-        <div class="company">
-            <p class="name">
-                LWKK
-            </p>
-            <p class="description">
-                The company is committed to bring convenience to people's life,
-                mainly research and sale of various portable tableware,
-                so that people can also use their own clean tableware when traveling.
-            </p>
 
-        </div>
-    </div>
-    <div class="nav">
-        <ul>
-            <li><a href="home.php">Home</a></li>
-            <li class="active"><a href="buying.php">Buying</a></li>
-            <li><a href="orders.php">Orders</a></li>
-        </ul>
-    </div>
-
-    <form id="buy-form" method="post" action="<?php echo $_SERVER['PHP_SELF'];?>" autocomplete="off">
-        <div class="form-group">
-            <label class="form-label"><b>Product code</b></label>
-            <div class="">
-                <input type="text" name="product_code" class="form-input" maxlength="12" placeholder="Product code" required>
-                <span class="star">*</span>
-            </div>
-            <div class="error">
-
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="form-label"><b>First name</b></label>
-            <div class="">
-                <input type="text" name="first_name" class="form-input" maxlength="20" placeholder="First name" required>
-                <span class="star">*</span>
-            </div>
-            <div class="error">
-
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="form-label"><b>Last name</b></label>
-            <div class="">
-                <input type="text" name="last_name" class="form-input" maxlength="20" placeholder="Last name" required>
-                <span class="star">*</span>
-            </div>
-            <div class="error">
-
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="form-label"><b>City</b></label>
-            <div class="">
-                <input type="text" name="city" class="form-input" maxlength="8" placeholder="City" required>
-                <span class="star">*</span>
-            </div>
-            <div class="error">
-
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="form-label"><b>Comments</b></label>
-            <div class="">
-                <textarea name="comments" class="form-input" rows="4" maxlength="200" placeholder="Comments(0-200)"></textarea>
-            </div>
-            <div class="error">
-
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="form-label"><b>Price</b></label>
-            <div class="">
-                <input type="text" name="price" class="form-input" placeholder="Price" required>
-                <span class="star">*</span>
-            </div>
-            <div class="error">
-
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="form-label"><b>Quantity</b></label>
-            <div class="">
-                <input type="number" name="quantity" class="form-input" min="1" max="99" placeholder="Quantity" required>
-                <span class="star">*</span>
-            </div>
-            <div class="error">
-
-            </div>
-        </div>
-
-        <div class="form-group-center">
-            <button type="submit" class="form-btn">Submit</button>
-        </div>
-    </form>
+<?php writeDocumentType()?>
+<?php writeHtmlStart();?>
+<?php writeHead('Buying', ['../css/style.css', '../css/buying.css'], ['../js/jquery.min.js', '../js/buying.js']);?>
+<?php writeBodyStart();?>
+<?php writeHtmlCommonTagStart('div', ['class' => 'content']);?>
+<?php writeLogo();?>
+<?php writeNav(1);?>
 
 
-</div>
-<div class="footer">
-    <p>Copyright TianzhenSun (1830409) 2022.</p>
-</div>
-</body>
-</html>
+<?php
+$formAttributes = [
+    'id' => 'buy-form',
+    'method' => 'post',
+    'action' => $_SERVER['PHP_SELF'],
+    'autocomplete' => 'off',
+];
+
+$formItems = [
+    [
+        'label' => 'Product code',
+        'tag' => 'input',
+        'attributes' => [
+            'type' => 'text',
+            'name' => 'product_code',
+            'class' => 'form-input',
+            'maxlength' => '12',
+            'placeholder' => 'Product code',
+            'required',
+        ]
+    ],
+    [
+        'label' => 'First name',
+        'tag' => 'input',
+        'attributes' => [
+            'type' => 'text',
+
+            'name' => 'first_name',
+            'class' => 'form-input',
+            'maxlength' => '20',
+            'placeholder' => 'First name',
+            'required',
+        ]
+    ],
+    [
+        'label' => 'Last name',
+        'tag' => 'input',
+        'attributes' => [
+            'type' => 'text',
+
+            'name' => 'last_name',
+            'class' => 'form-input',
+            'maxlength' => '20',
+            'placeholder' => 'Last name',
+            'required',
+        ]
+    ],
+    [
+        'label' => 'City',
+        'tag' => 'input',
+        'attributes' => [
+            'type' => 'text',
+
+            'name' => 'city',
+            'class' => 'form-input',
+            'maxlength' => '8',
+            'placeholder' => 'City',
+            'required',
+        ]
+    ],
+    [
+        'label' => 'Comments',
+        'tag' => 'textarea',
+        'attributes' => [
+            'type' => 'textarea',
+
+            'name' => 'comments',
+            'class' => 'form-input',
+            'maxlength' => '200',
+            'placeholder' => 'Comments(0-200)',
+            'rows' => '4',
+        ]
+    ],
+    [
+        'label' => 'Price',
+        'tag' => 'input',
+        'attributes' => [
+            'type' => 'text',
+
+            'name' => 'price',
+            'class' => 'form-input',
+            'placeholder' => 'Price',
+        ]
+    ],
+    [
+        'label' => 'Quantity',
+        'tag' => 'input',
+        'attributes' => [
+            'type' => 'number',
+
+            'name' => 'quantity',
+            'min' => 1,
+            'max' => 99,
+            'class' => 'form-input',
+            'placeholder' => 'Quantity',
+        ]
+    ],
+
+];
+writeForm($formAttributes, $formItems);?>
+
+<?php writeHtmlCommonTagEnd('div', 'content');?>
+<!--.footer start-->
+<?php writeFooter();?>
+
+<!--.footer end-->
+
+
+<?php writeBodyClose();?>
+<?php writeHtmlClose();?>
+

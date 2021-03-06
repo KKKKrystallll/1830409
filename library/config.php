@@ -12,3 +12,5 @@ defined('STUDENT_NUMBER') or define('STUDENT_NUMBER', '1830409');
 defined(' LOCAL_TAXES') or define('LOCAL_TAXES', 0.1205);
 //the path of purchases.txt
 defined('PURCHASES_FILE') or define('PURCHASES_FILE', dirname(__DIR__) . '/data/purchases.txt');
+
+defined('LOG_PATH') or define('LOG_PATH', dirname(__DIR__) . '/logs/');
