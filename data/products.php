@@ -3,6 +3,7 @@
 #
 #DEVELOPER DATE COMMENTS
 #TianzhenSun(1830409) 2021-03-06 create file, and config products list
+#TianzhenSun(1830409) 2021-03-09 modify image
 #
 return [
     [
@@ -17,7 +18,7 @@ return [
     ],
     [
         'name' => 'product3',
-        'image' => '../images/product4.jpg',
+        'image' => '../images/product3.jpg',
         'price' => '5.00',
     ],
     [
