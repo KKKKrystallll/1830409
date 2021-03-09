@@ -3,6 +3,7 @@
 #
 #DEVELOPER DATE COMMENTS
 #TianzhenSun(1830409) 2021-03-06 create some common function
+#TianzhenSun(1830409) 2021-03-09 add many comments
 #
 
 function writeDocumentType() {
@@ -25,6 +26,7 @@ function writeBodyClose() {
     echo '</body>';
 }
 
+//write the head tag
 function writeHead($title = '', $cssFiles = [], $jsFiles = []){
     writeTitle($title);
     writeHtmlMeta();
@@ -32,18 +34,21 @@ function writeHead($title = '', $cssFiles = [], $jsFiles = []){
     writeJsFiles($jsFiles);
 }
 
+//write css file
 function writeCssFiles($cssFiles = []){
     foreach ($cssFiles as $cssFile) {
         echo "<link rel=\"stylesheet\" href=\"{$cssFile}\"/>";
     }
 }
 
+//write js file
 function writeJsFiles($jsFiles = []){
     foreach ($jsFiles as $jsFile) {
         echo "<script src=\"{$jsFile}\"></script>";
     }
 }
 
+//the html meta,about cache control and charset
 function writeHtmlMeta() {
     echo '<meta charset="UTF-8"><meta http-equiv="Expires" content="0">
 <meta http-equiv="Pragma" content="no-cache">
@@ -146,8 +151,10 @@ EOD;
     echo sprintf($html, $s0, $s1, $s2);
 }
 
+//write form of buying page
 function writeForm($form = [], $items = []){
     $html = '<form ';
+    //the attributes of form
     foreach ($form as $key =>$item) {
         if (is_numeric($key)) {
             $html .= " {$key} ";
@@ -158,12 +165,14 @@ function writeForm($form = [], $items = []){
 
     $html .= ' >';
 
+    //the form item template
     $template = '<div class="form-group">
 <label class="form-label"><b>%s</b></label>
 <div>%s</div>
 <div class="error"></div>
 </div>';
 
+    //form item
     foreach ($items as $item) {
         $formItemHtml = '';
         $attributesStr = '';
@@ -187,6 +196,7 @@ function writeForm($form = [], $items = []){
         $html .= sprintf($template, $item['label'], $formItemHtml);
     }
 
+    //the submit button
     $html .= '<div class="form-group-center">
             <button type="submit" class="form-btn">Submit</button>
         </div></form>';
@@ -194,9 +204,10 @@ function writeForm($form = [], $items = []){
     echo $html;
 }
 
-
+//write the table of orders page
 function writeTable($table = [], $heads = [], $data = []){
     $html = '<table ';
+    //the attributes of table
     foreach ($table as $key =>$item) {
         if (is_numeric($key)) {
             $html .= " {$key} ";
@@ -209,12 +220,14 @@ function writeTable($table = [], $heads = [], $data = []){
 
     $html .= '<thead><tr>';
 
+    //the column head of table
     foreach ($heads as $head) {
         $class = isset($head['class']) ? $head['class'] : '';
         $html .= "<th class=\"{$class}\">{$head['title']}</th>";
     }
     $html .= '</tr></thead>';
 
+    //the body
     $html .= '<tbody>';
     foreach ($data as $row) {
         $html .= "<tr>";
@@ -231,7 +244,40 @@ function writeTable($table = [], $heads = [], $data = []){
     echo $html;
 }
 
+//generate the html tag of advertise section
+function writeAdvertises() {
+    //products list
+    $products = require DATA_PATH . 'products.php';
 
+
+    //the first product is twice price
+    $twiceProduct = array_shift($products);
+    //normal price
+    $normalProducts = $products;
+
+    echo    '<div class="product" id="product">';
+    echo    "<div class=\"product-item twice\">
+                <a href=\"//www.google.com\"><img src=\" {$twiceProduct['image']}\"/></a>
+                <div class=\"info\">
+                    <div>{$twiceProduct['name']}</div>
+                    <div>\${$twiceProduct['price']}</div>
+                </div>
+            </div>";
+
+    foreach ($normalProducts as $item) {
+        echo "<div class=\"product-item normal\">
+                <a href=\"//www.google.com\"><img src=\"{$item['image']}\"/></a>
+                <div class=\"info\">
+                    <div>{$item['name']}</div>
+                    <div>\${$item['price']}</div>
+                </div>
+            </div>";
+    }
+
+echo "</div>";
+}
+
+//write php cache control header
 function writeHeader() {
     header('Cache-control: must-revalidate, max-age=0, no-cache, no-store');
     header("Pragma: no-cache");
