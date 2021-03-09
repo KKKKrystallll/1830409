@@ -4,6 +4,7 @@
 #
 #DEVELOPER DATE COMMENTS
 #TianzhenSun(1830409) 2021-03-05 error handler
+#TianzhenSun(1830409) 2021-03-09 add browser version to log
 #
 
 require_once 'config.php';
@@ -39,8 +40,9 @@ function exceptionHandler($e){
     //transform millisecond to microsecond
     $microsecond = date('u', $time) * 1000;
 
+    $browser = $_SERVER['HTTP_USER_AGENT'];
     //the format of exception information
-    $error = sprintf("[%s.%d]File:%s,Line:%s,Code:%s,Message:%s\n", $date, $microsecond, $file, $line, $code, $message);
+    $error = sprintf("[%s.%d]File:%s,Line:%s,Code:%s,Message:%s,browser:%s\n", $date, $microsecond, $file, $line, $code, $message, $browser);
 
     //write to log file
     file_put_contents($filename, $error, FILE_APPEND);
